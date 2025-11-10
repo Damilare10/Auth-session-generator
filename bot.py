@@ -590,14 +590,27 @@ def main() -> None:
         print("ERROR: TELEGRAM_BOT_TOKEN not found in .env file.")
         return
 
-    # Set up persistence for the JobQueue
+    # --- REVISED INITIALIZATION ---
+
+    # 1. Create the JobQueue instance first
+    job_queue = JobQueue()
+
+    # 2. Set up persistence for the JobQueue
     persistence = PicklePersistence(filepath="raid_bot_persistence.pkl")
 
     database.initialize_database()
 
-    # Add persistence to the application builder
-    application = Application.builder().token(TOKEN).persistence(
-        persistence).post_init(post_init).build()
+    # 3. Build the application, passing the JobQueue and persistence objects
+    application = (
+        Application.builder()
+        .token(TOKEN)
+        .persistence(persistence)
+        .job_queue(job_queue)  # <-- Explicitly add the job queue here
+        .post_init(post_init)
+        .build()
+    )
+
+    # --- END OF REVISED INITIALIZATION ---
 
     application.add_error_handler(error_handler)
 
@@ -617,7 +630,7 @@ def main() -> None:
             "addauth", start_add_auth, filters=filters.ChatType.PRIVATE)],
         states={
             AWAITING_AUTH_JSON: [MessageHandler(
-                filters.Document.ALL, receive_auth_file)]  # <-- Change to filters.Document.ALL
+                filters.Document.ALL, receive_auth_file)]
         },
         fallbacks=[CommandHandler("cancel", cancel)],
     )
