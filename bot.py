@@ -5,6 +5,7 @@ import re
 import json
 import random
 import scraper
+from typing import Union
 from datetime import datetime, timedelta
 from dotenv import load_dotenv
 from telegram import Update, MessageEntity, BotCommand, BotCommandScopeAllPrivateChats, BotCommandScopeAllGroupChats
@@ -29,7 +30,7 @@ logging.basicConfig(
 ) = range(3)
 
 
-def _parse_delta(duration_text: str) -> timedelta | None:
+def _parse_delta(duration_text: str) -> Union[timedelta, None]:
     """Helper function to parse a duration string (e.g., '30m', '12h') into a timedelta object."""
     match = re.match(r'^(\d+)([mhd])$', duration_text)
     if not match:
