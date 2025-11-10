@@ -11,7 +11,7 @@ from dotenv import load_dotenv
 from telegram import Update, MessageEntity, BotCommand, BotCommandScopeAllPrivateChats, BotCommandScopeAllGroupChats
 from telegram.ext import (
     Application, CommandHandler, MessageHandler,
-    filters, ConversationHandler, ContextTypes, PicklePersistence
+    filters, ConversationHandler, ContextTypes, PicklePersistence, JobQueue
 )
 from telegram.constants import ParseMode
 from telegram import Update, MessageEntity, BotCommand, BotCommandScopeAllPrivateChats, BotCommandScopeAllGroupChats, ReactionTypeEmoji
