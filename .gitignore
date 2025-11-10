@@ -1,0 +1,34 @@
+# --- Environment Variables ---
+# Never commit your secret keys (like your Telegram bot token).
+.env
+
+# --- Sensitive User Data ---
+# This folder contains user-provided auth session files.
+# It's a major security risk to upload this.
+user_data/
+
+# --- Database File ---
+# Contains all user profiles, raid data, etc. Do not make this public.
+bot_data.db
+bot_data
+
+# --- Python Cache & Virtual Environments ---
+# Standard Python temporary files.
+__pycache__/
+*.pyc
+
+# --- Build Artifacts from PyInstaller ---
+# These folders are generated when you create the .exe file.
+# They are large and should be rebuilt from source, not stored in git.
+build/
+dist/
+*.spec
+
+# --- Telegram Bot Persistence ---
+# This file stores the state of scheduled jobs. It's runtime data.
+*.pkl
+raid_bot_persistence.pkl
+
+# --- Auth Profile Data (from Persistent Login) ---
+# The persistent browser profile folder created by the generator app.
+auth_profile_data/
